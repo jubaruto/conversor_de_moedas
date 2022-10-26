@@ -4,6 +4,16 @@ from tkinter import *
 from click import command
 from tkinter import messagebox
 from numpy import real
+from requests import *
+
+url = get('https://economia.awesomeapi.com.br/json/last/USD-BRL')
+url_format = url.json()
+
+dolarhj = url_format['USDBRL']['bid']
+dolarhj = float(dolarhj)
+dolarhj = round(dolarhj, 2)
+
+
 
 # TELA
 tela = Tk()
@@ -17,12 +27,12 @@ def conversao():
     try:
         if textoreal.get() == '':
             dolar = float(textodolar.get())
-            real = dolar * 5.32
-            textoreal.insert(0, real)
+            real = dolar * dolarhj
+            textoreal.insert(0, round(real, 2))
         else:
             real = float(textoreal.get())
-            dolar = real / 5.32
-            textodolar.insert(0, dolar)
+            dolar = real / dolarhj
+            textodolar.insert(0, round(dolar, 2))
     except ValueError:
         messagebox.showerror('Atenção!!', 'Insira um valor!')
 
