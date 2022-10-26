@@ -1,13 +1,34 @@
 from cgitb import text
 from email.mime import image
 from tkinter import *
+from click import command
+from tkinter import messagebox
+from numpy import real
 
+# TELA
 tela = Tk()
 tela.title('Conversor de Moedas')
 tela.geometry('300x450+500+150')
 tela.resizable(False, False)
 tela.config(bg='#32CD32')
 
+# FUNÇÕES
+def conversao():
+    try:
+        if textoreal.get() == '':
+            dolar = float(textodolar.get())
+            real = dolar * 5.32
+            textoreal.insert(0, real)
+        else:
+            real = float(textoreal.get())
+            dolar = real / 5.32
+            textodolar.insert(0, dolar)
+    except ValueError:
+        messagebox.showerror('Atenção!!', 'Insira um valor!')
+
+def limpar():
+    textodolar.delete(0, END)
+    textoreal.delete(0, END)
 
 logo = PhotoImage(file='C:\Projetos\conversor_de_moedas\img\imagem1.png')
 logo = logo.subsample(3, 3)
@@ -28,9 +49,9 @@ labelreal = Label(tela, text='Real', bg='#32CD32')
 textoreal = Entry(framereal, width=45,)
 
 bconversao = Button(tela, text='Conversão', font=('Georgia', 15),
-                    highlightthickness=0, bd=0, bg='#32CD32', borderwidth=1.5, relief='solid',)
+                    highlightthickness=0, bd=0, bg='#32CD32', borderwidth=1.5, relief='solid', command=conversao)
                     
-blixo = Button(tela, image=lixeira, highlightthickness=0, bd=0, bg='#32CD32')
+blixo = Button(tela, image=lixeira, highlightthickness=0, bd=0, bg='#32CD32', command=limpar)
 
 
 img1.place(x=70, y=10)
