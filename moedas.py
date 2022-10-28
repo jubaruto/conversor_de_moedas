@@ -6,7 +6,7 @@ from tkinter import messagebox
 from numpy import real
 from requests import *
 
-url = get('https://economia.awesomeapi.com.br/json/last/USD-BRL,EUR-BRL,JPY-BRL')
+url = get('https://economia.awesomeapi.com.br/json/last/USD-BRL,EUR-BRL')
 url_format = url.json()
 
 dolarhj = url_format['USDBRL']['bid']
@@ -17,21 +17,19 @@ eurohj = url_format['EURBRL']['bid']
 eurohj = float(eurohj)
 eurohj = round(eurohj, 2)
 
-# TELA
 tela = Tk()
 tela.title('Conversor de Moedas')
 tela.geometry('300x600+500+50')
 tela.resizable(False, False)
 tela.config(bg='#32CD32')
 
-# FUNÇÕES
 def conversao():
     try:
         if textoreal.get() == '' and textoeuro.get() == '':
             dolar = float(textodolar.get())
             
             real = dolar * dolarhj
-            textoreal.insert(0, round(real, 2))         # real e euro
+            textoreal.insert(0, round(real, 2))         
             
             euro = real / eurohj
             textoeuro.insert(0, round(euro, 2))
@@ -40,7 +38,7 @@ def conversao():
             real = float(textoreal.get())
             
             dolar = real / dolarhj
-            textodolar.insert(0, round(dolar, 2))       # dolar e euro
+            textodolar.insert(0, round(dolar, 2))       
             
             euro = real / eurohj
             textoeuro.insert(0, round(euro, 2))
@@ -49,7 +47,7 @@ def conversao():
             euro = float(textoeuro.get())
             
             real = euro * eurohj
-            textoreal.insert(0, round(real, 2))         # real e dolar
+            textoreal.insert(0, round(real, 2))         
             
             dolar = real / dolarhj
             textodolar.insert(0, round(dolar, 2))
