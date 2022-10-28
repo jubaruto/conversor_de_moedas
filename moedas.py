@@ -6,7 +6,7 @@ from tkinter import messagebox
 from numpy import real
 from requests import *
 
-url = get('https://economia.awesomeapi.com.br/json/last/USD-BRL,EUR-BRL')
+url = get('https://economia.awesomeapi.com.br/json/last/USD-BRL,EUR-BRL,JPY-BRL')
 url_format = url.json()
 
 dolarhj = url_format['USDBRL']['bid']
@@ -31,7 +31,7 @@ def conversao():
             dolar = float(textodolar.get())
             
             real = dolar * dolarhj
-            textoreal.insert(0, round(real, 2))
+            textoreal.insert(0, round(real, 2))         # real e euro
             
             euro = real / eurohj
             textoeuro.insert(0, round(euro, 2))
@@ -40,7 +40,7 @@ def conversao():
             real = float(textoreal.get())
             
             dolar = real / dolarhj
-            textodolar.insert(0, round(dolar, 2))
+            textodolar.insert(0, round(dolar, 2))       # dolar e euro
             
             euro = real / eurohj
             textoeuro.insert(0, round(euro, 2))
@@ -49,7 +49,7 @@ def conversao():
             euro = float(textoeuro.get())
             
             real = euro * eurohj
-            textoreal.insert(0, round(real, 2))
+            textoreal.insert(0, round(real, 2))         # real e dolar
             
             dolar = real / dolarhj
             textodolar.insert(0, round(dolar, 2))
@@ -84,6 +84,11 @@ frameeuro = Frame(tela, borderwidth=1.5, relief='solid',  bg='#32CD32')
 labeleuro = Label(tela, text='Euro', bg='#32CD32')
 textoeuro = Entry(frameeuro, width=45,)
 
+frameyen = Frame(tela, borderwidth=1.5, relief='solid',  bg='#32CD32')
+labelyen = Label(tela, text='Iene', bg='#32CD32')
+textoyen = Entry(frameyen, width=45,)
+
+
 bconversao = Button(tela, text='Conversão', font=('Georgia', 15),
                     highlightthickness=0, bd=0, bg='#32CD32', borderwidth=1.5, relief='solid', command=conversao)
                     
@@ -104,8 +109,12 @@ frameeuro.place(x=5, y=333, width=285, height=48)
 labeleuro.place(x=10, y=335)
 textoeuro.place(x=5, y=20)
 
+frameyen.place(x=5, y=408, width=285, height=48)
+labelyen.place(x=10, y=410)
+textoyen.place(x=5, y=20)
+
 bconversao.place(x=90, y=500)
-blixo.place(x=270, y=490)
+blixo.place(x=270, y=460)
 
 
 
